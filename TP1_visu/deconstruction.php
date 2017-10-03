@@ -29,6 +29,24 @@
 		return [$xindice, $yindice];
 	}
 
+
+	function decompositionDetails($values, $NivDetail)
+	{
+		$yindice = [];
+		$xindice = [];
+
+		for($i= 0; $i < sizeof($values)/2; $i++)
+		{
+			$xindice[$i] = ($values[2*$i] + $values[2*$i+1])/2;
+			$yindice[$i] = $values[2*$i] - $xindice[$i];
+			if ($yindice[$i] <  $NivDetail && $yindice[$i] > (-$NivDetail))
+			{
+				$yindice[$i] = 0;
+			}
+		}
+		return [$xindice, $yindice];
+	}
+
 	function decompositionFull($tab, $reso_min)
 	{
 		$finalIndice = sizeof($tab);
@@ -49,6 +67,27 @@
 		return $finalTab;
 
 	}
+	
+	function decompositionFullDetails($tab, $NivDetail)
+	{
+		$finalIndice = sizeof($tab);
+		$k = 0;
+		$finalTab = array();
+		while($finalIndice>1)
+		{
+			$res = decompositionDetails($tab, $NivDetail);
+			$xindice = $res[0];
+			$yindice = $res[1];
+			$k++;
+			$finalIndice = sizeof($xindice);
+			$tab = $xindice;
+			$finalTab = array_merge($yindice,$finalTab);
+		}
+		$finalTab = array_merge($tab,$finalTab);
+		return $finalTab;
+
+	}
+
 
  	
 	if( isset($_GET["file"]) )
