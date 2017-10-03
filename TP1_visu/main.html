@@ -1,0 +1,64 @@
+<html>
+ <head>
+  <title>Test PHP</title>
+
+  <?php
+
+
+	function reconstruction()
+	{
+
+	}
+
+
+	function decompositionSimple($tab)
+	{
+		$yindice = [];
+		$xindice = [];
+
+		for($i= 0; $i < sizeof($tab)/2; $i++)
+		{
+			$xindice[$i] = ($tab[2*$i] + $tab[2*$i+1])/2;
+			$yindice[$i] = $tab[2*$i] - $xindice[$i];
+		}
+		return [$xindice, $yindice];
+	}
+
+	function decompositionFull($tab)
+	{
+		$finalIndice = sizeof($tab);
+		$k = 0;
+		$finalTab = [];
+		while($finalIndice>1)
+		{
+			$res = decompositionSimple($tab);
+			$xindice = $res[0];
+			$yindice = $res[1];
+			$k++;
+			$finalIndice = sizeof($xindice);
+			$tab = $xindice;
+			$finalTab = array_merge($yindice,$finalTab);
+		}
+		$finalTab = array_merge($tab,$finalTab);
+		return $finalTab;
+
+	}
+
+	?>
+
+ </head>
+ <body>
+ <?php 
+ 	$tab = [9,7,3,5];
+ 	$blop = decompositionSimple($tab);
+ 	print_r($blop[0]);
+ 	print_r($blop[1]);
+ 	$blop = decompositionFull($tab);
+ 	print_r(json_encode($blop));
+ ?>
+
+ <script src="plotly-latest.min.js"></script>
+ <script src="graph"></script>
+
+ </body>
+</html>
