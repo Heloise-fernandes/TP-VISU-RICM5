@@ -16,25 +16,27 @@
 	function recompositionFull($values, $resmin)
 	{
 		$N = $resmin+1;
-		while ($N < sizeof($values)) {
+		while ($N < sizeof($values)) 
+		{
 			for ($i=0; $i<$N; $i++){
 				$x[$i] = $values[$i];
 				$y[$i] = $values[$i+$N];
 			
-			$rec = recomposition($x, $y);
-			for ($i=0; $i<$N*2; $i++){
-				$values[$i] = $rec[$i];
+				$rec = recomposition($x, $y);
+				for ($i=0; $i<$N*2; $i++){
+					$values[$i] = $rec[$i];
+				}
+				$N = $N*2;
 			}
-			$N = $N*2;
+			return $values;
 		}
-		return $values;
 	}
 
 
 
 	if( isset($_GET["decompo"]) )
 	{
-		$tab = $_GET["decompo"];
+		$tab = json_decode($_GET["decompo"]);
 	}
 	else
 	{
@@ -55,5 +57,3 @@
 	echo json_encode($resultat);
 
 ?>
-
-
