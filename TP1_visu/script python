@@ -1,0 +1,1 @@
+mon_fichier = open("fichierSinus.txt", "w")
