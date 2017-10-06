@@ -107,9 +107,18 @@
 	{
 		$resmin = 0	;
 	}
+	if( isset($_GET["NivDetail"]) )
+	{
+		$nivDetail = $_GET["NivDetail"];
+	}
+	else
+	{
+		$nivDetail = 0	;
+	}
+
 	$res = decompositionFull($tab, $resmin);
 
-	$resultat = ['decompo'=>$res, 'origin'=>$tab, 'resolution_de_fin'=>$resmin];
+	$resultat = ['decompo'=>$res, 'origin'=>$tab, 'resolution_de_fin'=>$resmin, 'nivDetail'=>$nivDetail];
 	echo json_encode($resultat);
 ?>
 
