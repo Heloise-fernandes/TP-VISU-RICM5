@@ -38,6 +38,10 @@
 	{
 		$tab = json_decode($_GET["decompo"]);
 	}
+	else if( isset($_POST["decompo"]) )
+	{
+		$tab = json_decode($_POST["decompo"]);
+	}
 	else
 	{
 		$tab = [0,0,0,0];
@@ -46,6 +50,10 @@
 	if( isset($_GET["res"]) )
 	{
 		$resmin = $_GET["res"];
+	}
+	else if ( isset($_POST["res"]) )
+	{
+		$resmin = json_decode($_POST["res"]);
 	}
 	else
 	{
