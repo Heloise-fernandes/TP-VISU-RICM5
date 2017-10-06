@@ -1,12 +1,10 @@
 $(document).ready(function() {
 
-	function requestDecompose(tabAbscisse)
+	function requestGetOrigine(tabAbscisse)
 	{
-
-
 		$.get('deconstruction.php?file=fichierSinus.txt',function(data){
 		 		var res = JSON.parse(data);
-
+		 		//console.log(data);
 	            //res['origin'];
 	            //res['decompo'];
 				
@@ -24,18 +22,55 @@ $(document).ready(function() {
 
 	}
 
-	//-1.0, 1.0, num=2000
+	function requestdecomporeconstr(tabAbscisse)
+	{
+
+		$.get('deconstruction.php?file=fichierSinus.txt',function(data){
+		 		var res = JSON.parse(data);
+
+				var decompo = res['decompo']
+				var about=escape( $("#editorAbout").text());
+			    $.ajax({
+			        url: "reconstruction.php",
+			        type:"post",
+			        async: false,
+			        data: {
+			            decompo: decompo
+			        },
+			        success: function(data){   
+			        	var res = JSON.parse(data);
+					
+			            var trace1 = {
+						  x: tabAbscisse,
+						  y: res['recompo'],
+						  type: 'scatter'
+						};
+
+						var data = [trace1];
+
+						Plotly.newPlot('tabReconstruct', data);  
+
+			        },
+			        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
+			    });
+		});
+
+		
+
+	}
+
+	//-1.0, 1.0, num=2048
 
 	var x = [];
-	var offset = 2/2000;
+	var offset = 2/2048;
 	var value = -1;
 	for (var i = 0; i <2000; i++) {
 		x[i]= value
 		value+=offset;
 	}
 
-	console.log(offset);
-	console.log(x);
+	requestGetOrigine(x)
+	requestdecomporeconstr(x)
 
 
 	//requestDecompose();
