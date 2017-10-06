@@ -8,10 +8,11 @@ function requestHistogramme()
 
 				// le tableau contenant les details resultant de la decomposition 
 				res0=res['decompo'];
-				var res1=[];
+				res1=Math.abs(res0);
+				/*var res1=[];
 				for(var i=0;i<res0.length-1;i++){
 				   res1[i]=Math.abs(res0[i]);
-				}
+				}*/
 				var trace1 = {
 				  x: res1,
 				   type: 'histogram'
