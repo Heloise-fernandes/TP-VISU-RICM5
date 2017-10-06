@@ -29,7 +29,6 @@ $(document).ready(function() {
 		 		var res = JSON.parse(data);
 
 				var decompo = res['decompo']
-				var about=escape( $("#editorAbout").text());
 			    $.ajax({
 			        url: "reconstruction.php",
 			        type:"post",
@@ -38,6 +37,8 @@ $(document).ready(function() {
 			            decompo: decompo
 			        },
 			        success: function(data){   
+			        	console.log(data);
+			        	//$('#tabReconstruct').html(data)
 			        	var res = JSON.parse(data);
 					
 			            var trace1 = {
