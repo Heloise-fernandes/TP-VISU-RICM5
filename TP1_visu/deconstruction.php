@@ -10,10 +10,12 @@
 	/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
 	foreach ($lines as $lineNumber => $lineContent)
 	{
-		$tab[$i] = intval($lineContent);
+		$tab[$i] = floatval($lineContent);
 		$i++;
 	}
-	return $tab;
+
+
+		return $tab;
 	}
 
 	function decompositionSimple($tab)
@@ -107,9 +109,18 @@
 	{
 		$resmin = 0	;
 	}
+	if( isset($_GET["NivDetail"]) )
+	{
+		$nivDetail = $_GET["NivDetail"];
+	}
+	else
+	{
+		$nivDetail = 0	;
+	}
+
 	$res = decompositionFull($tab, $resmin);
 
-	$resultat = ['decompo'=>$res, 'origin'=>$tab, 'resolution_de_fin'=>$resmin];
+	$resultat = ['decompo'=>$res, 'origin'=> $tab, 'resolution_de_fin'=>$resmin, 'nivDetail'=>$nivDetail];
 	echo json_encode($resultat);
 ?>
 

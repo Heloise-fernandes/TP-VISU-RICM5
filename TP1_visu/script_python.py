@@ -3,7 +3,7 @@ import numpy as np
 
 #0.1
 
-abscisse = np.linspace(-1.0, 1.0, num=2000)
+abscisse = np.linspace(-1.0, 1.0, num=2048)
 
 mon_fichier = open("fichierSinus.txt", "w")
 
