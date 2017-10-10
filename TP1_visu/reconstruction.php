@@ -15,7 +15,7 @@
 
 	function recompositionFull($values, $resmin)
 	{
-		$N = $resmin+1;
+		$N = pow(2,$resmin);
 		while ($N < sizeof($values)) 
 		{
 			for ($i=0; $i<$N; $i++){
