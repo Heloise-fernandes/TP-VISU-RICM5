@@ -46,8 +46,6 @@
 			$tab[$i] = floatval($lineContent);
 			$i++;
 		}
-
-
 		return $tab;
 	}
 
