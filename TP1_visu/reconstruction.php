@@ -23,13 +23,15 @@
 				$y[$i] = $values[$i+$N];
 			
 				$rec = recomposition($x, $y);
-				for ($i=0; $i<$N*2; $i++){
-					$values[$i] = $rec[$i];
+				for ($j=0; $j<$N*2; $j++){
+					$values[$j] = $rec[$j];
 				}
-				$N = $N*2;
+				
 			}
-			return $values;
+			$N = $N*2;
+			
 		}
+		return $values;
 	}
 
 	function read($path)
