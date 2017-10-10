@@ -25,6 +25,7 @@
 			$rec = recomposition($x, $y);
 			for ($j=0; $j<$N*2; $j++){
 				$values[$j] = $rec[$j];
+
 			}
 			$N = $N*2;
 			
@@ -32,7 +33,20 @@
 		return $values;
 	}
 
-
+	function read($path)
+	{
+		$tab = [];
+		$i = 0;
+		/*Ouvre le fichier et retourne un tableau contenant une ligne par élément*/
+		$lines = file($path);
+		/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
+		foreach ($lines as $lineNumber => $lineContent)
+		{
+			$tab[$i] = floatval($lineContent);
+			$i++;
+		}
+		return $tab;
+	}
 
 	if( isset($_GET["decompo"]) )
 	{
@@ -40,11 +54,12 @@
 	}
 	else if( isset($_POST["decompo"]) )
 	{
-		$tab = json_decode($_POST["decompo"]);
+		$tab = $_POST["decompo"];
 	}
 	else
 	{
-		$tab = [0,0,0,0];
+		//$tab = [0,0,0,0];
+		$tab = read("fichierSinusDecompo.txt");
 	}
 
 	if( isset($_GET["res"]) )

@@ -90,6 +90,20 @@
 
 	}
 
+	function write($tab)
+	{
+		$i = 0;
+		/*Ouvre le fichier et retourne un tableau contenant une ligne par élément*/
+		$monfichier = fopen("fichierSinusDecompo.txt", "w");
+		/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
+		for ($i = 0; $i < sizeof($tab); $i++)
+		{
+			fputs($monfichier,$tab[$i]."\n");
+			//fputs($monfichier,"blop");
+		}
+		fclose($monfichier);
+
+	}
 
  	
 	if( isset($_GET["file"]) )
@@ -119,7 +133,9 @@
 	}
 
 	$res = decompositionFull($tab, $resmin);
+	
 
 	$resultat = ['decompo'=>$res, 'origin'=> $tab, 'resolution_de_fin'=>$resmin, 'nivDetail'=>$nivDetail];
+	write($resultat['decompo']);
 	echo json_encode($resultat);
 ?>
