@@ -28,7 +28,7 @@ $(document).ready(function() {
 		$.get('deconstruction.php?file=fichierSinus.txt',function(data){
 		 		var res = JSON.parse(data);
 
-				var decompo = res['decompo']
+				var decompo = res['decompo'];
 				var about=escape( $("#editorAbout").text());
 			    $.ajax({
 			        url: "reconstruction.php",

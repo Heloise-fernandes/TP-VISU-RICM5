@@ -15,21 +15,21 @@
 
 	function recompositionFull($values, $resmin)
 	{
-		$N = $resmin+1;
+		$N = pow(2,$resmin);
 		while ($N < sizeof($values)) 
 		{
 			for ($i=0; $i<$N; $i++){
 				$x[$i] = $values[$i];
-				$y[$i] = $values[$i+$N];
-			
-				$rec = recomposition($x, $y);
-				for ($i=0; $i<$N*2; $i++){
-					$values[$i] = $rec[$i];
-				}
-				$N = $N*2;
+				$y[$i] = $values[$i+$N];	
 			}
-			return $values;
+			$rec = recomposition($x, $y);
+			for ($j=0; $j<$N*2; $j++){
+				$values[$j] = $rec[$j];
+			}
+			$N = $N*2;
+			
 		}
+		return $values;
 	}
 
 
@@ -63,5 +63,4 @@
 
 	$resultat = ['recompo'=>$res, 'origin'=>$tab, 'resolution_de_deb'=>$resmin];
 	echo json_encode($resultat);
-
 ?>

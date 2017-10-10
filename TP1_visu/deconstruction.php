@@ -123,4 +123,3 @@
 	$resultat = ['decompo'=>$res, 'origin'=> $tab, 'resolution_de_fin'=>$resmin, 'nivDetail'=>$nivDetail];
 	echo json_encode($resultat);
 ?>
-
