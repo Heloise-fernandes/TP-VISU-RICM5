@@ -20,13 +20,12 @@
 		{
 			for ($i=0; $i<$N; $i++){
 				$x[$i] = $values[$i];
-				$y[$i] = $values[$i+$N];
-			
-				$rec = recomposition($x, $y);
-				for ($j=0; $j<$N*2; $j++){
-					$values[$j] = $rec[$j];
-				}
-				
+				$y[$i] = $values[$i+$N];	
+			}
+			$rec = recomposition($x, $y);
+			for ($j=0; $j<$N*2; $j++){
+				$values[$j] = $rec[$j];
+
 			}
 			$N = $N*2;
 			
@@ -79,5 +78,4 @@
 
 	$resultat = ['recompo'=>$res, 'origin'=>$tab, 'resolution_de_deb'=>$resmin];
 	echo json_encode($resultat);
-
 ?>
