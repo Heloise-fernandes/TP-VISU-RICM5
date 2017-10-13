@@ -12,7 +12,7 @@
 		foreach ($lines as $lineNumber => $lineContent)
 		{
 			$slipLine = explode(" ", $lineContent);
-			$tab[$i] = ['x' => floatval($lineContent[0]), 'y' => floatval($lineContent[1]) ];
+			$tab[$i] = ['x' => floatval($slipLine[0]), 'y' => floatval($slipLine[1]) ];
 			$i++;
 		}
 
@@ -43,9 +43,6 @@
 		$tab = read('crocodile512.d');	
 	}
 
-
-	$resultat = [];
-	
-	echo json_encode($resultat);
+	echo json_encode($tab);
 
 ?>
