@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+	var graphOrigine = [];
+	var grapheRecompo = [];
+
 	function requestGetOrigine(tabAbscisse)
 	{
 		$.get('deconstruction.php?file=fichierSinus.txt',function(data){
@@ -14,10 +17,37 @@ $(document).ready(function() {
 				  type: 'scatter'
 				};
 
-				var data = [trace1];
+				Plotly.addTraces(graphOrigine,trace1);
+		});
 
-				Plotly.newPlot('tabOrigine', data);
+	}
 
+	function requestGetDecompoDétail(tabAbscisse, reso, totalSize)
+	{
+		var exposant = Math.log(reso)/Math.log(2);
+		var offset = tabAbscisse.length / reso;
+		
+		$.get('deconstruction.php?file=fichierSinus.txt&res='+exposant,function(data){
+		 		var res = JSON.parse(data);
+		 		
+		 		var moy  = [];
+		 		var x = 0
+		 		for(var i = 0; i < reso; i++)
+		 		{
+		 			for(var j = 0; j < offset; j++)
+		 			{	
+		 				moy[x+j] = res['decompo'][i];
+		 			}
+		 			x +=offset
+		 		}
+
+	            var trace1 = {
+				  x: tabAbscisse,
+				  y: moy,
+				  type: 'scatter'
+				};
+
+				Plotly.addTraces(graphOrigine,trace1);
 		});
 
 	}
@@ -37,7 +67,7 @@ $(document).ready(function() {
 			            decompo: decompo
 			        },
 			        success: function(data){   
-			        	console.log(data);
+			        	//console.log(data);
 			        	//$('#tabReconstruct').html(data)
 			        	var res = JSON.parse(data);
 					
@@ -47,31 +77,38 @@ $(document).ready(function() {
 						  type: 'scatter'
 						};
 
-						var data = [trace1];
-
-						Plotly.newPlot('tabReconstruct', data);  
+						Plotly.addTraces(grapheRecompo,trace1);
 
 			        },
 			        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
 			    });
 		});
 
-		
-
 	}
 
+	var TailleTableau = 2048
 	//-1.0, 1.0, num=2048
+	Plotly.newPlot('tabOrigine', []);
+	Plotly.newPlot('tabReconstruct', []);
+
+	graphOrigine = document.getElementById('tabOrigine');
+	grapheRecompo = document.getElementById('tabReconstruct');
 
 	var x = [];
-	var offset = 2/2048;
+	var offset = 2/TailleTableau;
 	var value = -1;
-	for (var i = 0; i <2000; i++) {
+	for (var i = 0; i <TailleTableau; i++) {
 		x[i]= value
 		value+=offset;
 	}
-
 	requestGetOrigine(x)
 	requestdecomporeconstr(x)
+
+	requestGetDecompoDétail(x, TailleTableau/32, TailleTableau)
+
+	requestGetDecompoDétail(x, TailleTableau/128, TailleTableau)
+
+	requestGetDecompoDétail(x, TailleTableau/512, TailleTableau)
 
 
 	//requestDecompose();

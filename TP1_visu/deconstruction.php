@@ -6,16 +6,25 @@
 		$tab = [];
 		$i = 0;
 		/*Ouvre le fichier et retourne un tableau contenant une ligne par élément*/
-	$lines = file($path);
-	/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
-	foreach ($lines as $lineNumber => $lineContent)
-	{
-		$tab[$i] = floatval($lineContent);
-		$i++;
+		$lines = file($path);
+		/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
+		foreach ($lines as $lineNumber => $lineContent)
+		{
+			$tab[$i] = floatval($lineContent);
+			$i++;
+		}
+		return $tab;
 	}
 
-
-		return $tab;
+	function write($tab)
+	{
+		$i = 0;
+		$monfichier = fopen("fichierSinusDecompo.txt", "w");
+		for ($i = 0; $i < sizeof($tab); $i++)
+		{
+			fputs($monfichier,$tab[$i]."\n");
+		}
+		fclose($monfichier);
 	}
 
 	function decompositionSimple($tab)
@@ -51,20 +60,28 @@
 
 	function decompositionFull($tab, $reso_min)
 	{
+		
 		$finalIndice = sizeof($tab);
-		$resMax = sqrt(sizeof($tab));
+		$resMax = log(sizeof($tab),2)/log(2,2);
 		$finalTab = [];
 
-		while($finalIndice>1 && $resMax>$reso_min )
+		while( $finalIndice>1 && $resMax>$reso_min )
 		{
+			//Un niveau de décomposition
 			$res = decompositionSimple($tab);
-			$xindice = $res[0];
-			$yindice = $res[1];
-			$resMax--;
+			$xindice = $res[0]; $yindice = $res[1];
+			
+			//on change l'indice de fin de tableau et le prochain tableau à décomposer
 			$finalIndice = sizeof($xindice);
 			$tab = $xindice;
+
+			//on ajoute le tableau de détail au debut du tableau
 			$finalTab = array_merge($yindice,$finalTab);
+
+			//on décrémente la résolution
+			$resMax--;
 		}
+		//on ajoute le tableau de moyenne en début de tableau
 		$finalTab = array_merge($tab,$finalTab);
 		return $finalTab;
 
@@ -90,20 +107,7 @@
 
 	}
 
-	function write($tab)
-	{
-		$i = 0;
-		/*Ouvre le fichier et retourne un tableau contenant une ligne par élément*/
-		$monfichier = fopen("fichierSinusDecompo.txt", "w");
-		/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
-		for ($i = 0; $i < sizeof($tab); $i++)
-		{
-			fputs($monfichier,$tab[$i]."\n");
-			//fputs($monfichier,"blop");
-		}
-		fclose($monfichier);
-
-	}
+	
 
  	
 	if( isset($_GET["file"]) )
@@ -123,19 +127,19 @@
 	{
 		$resmin = 0	;
 	}
+
 	if( isset($_GET["NivDetail"]) )
 	{
 		$nivDetail = $_GET["NivDetail"];
+		$res = decompositionFullDetails($tab, $nivDetail);
 	}
 	else
 	{
-		$nivDetail = 0	;
+		$nivDetail = NULL;
+		$res = decompositionFull($tab, $resmin);
 	}
 
-	$res = decompositionFull($tab, $resmin);
-	
-
 	$resultat = ['decompo'=>$res, 'origin'=> $tab, 'resolution_de_fin'=>$resmin, 'nivDetail'=>$nivDetail];
-	write($resultat['decompo']);
+	//write($resultat['decompo']);
 	echo json_encode($resultat);
 ?>
