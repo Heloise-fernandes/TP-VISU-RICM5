@@ -2,17 +2,6 @@
 <?php
 
 
-	function deconstruction()
-	{
-
-	}
-
-
-	function reconstruction()
-	{
-		
-	}
-
 	function read($path)
 	{
 		$tab = [];
