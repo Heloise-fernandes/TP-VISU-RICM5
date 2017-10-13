@@ -4,7 +4,7 @@ $(document).ready(function() {
 	//context.beginPath();
 	function drawImage(idCanvas,tableaux)
 	{
-		var canvas = document.getElementById("canvas");
+	    var canvas = document.getElementById("canvas");
 	    var contexte = canvas.getContext("2d");
 	    var h = canvas.height;
 	    var w = canvas.width;
@@ -20,12 +20,13 @@ $(document).ready(function() {
 	
 	function displayCroc(idCanvas)
 	{
-		$.get('inputOutput.php',function(data){
-	 		var res = JSON.parse(data);
-	 		drawImage(idCanvas,res)
+		 $.get('decomposition.php',function(data){
+			var res = JSON.parse(data);
+			drawImage(idCanvas,res['Moyenne'])
 		});
 	}
 
 	displayCroc("canvas");
+        
 
 });
