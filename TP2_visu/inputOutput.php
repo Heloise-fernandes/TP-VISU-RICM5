@@ -43,6 +43,8 @@
 		$tab = read('crocodile512.d');	
 	}
 
-	echo json_encode($tab);
+	$resultat = [];
+	
+	echo json_encode($resultat);
 
 ?>
