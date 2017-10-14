@@ -48,34 +48,20 @@
 		return $tab;
 	}
 
-	if( isset($_GET["decompo"]) )
-	{
-		$tab = json_decode($_GET["decompo"]);
-	}
-	else if( isset($_POST["decompo"]) )
-	{
-		$tab = $_POST["decompo"];
-	}
-	else
-	{
-		//$tab = [0,0,0,0];
-		$tab = read("fichierSinusDecompo.txt");
-	}
+	if( isset($_GET["decompo"]) ){$tab = json_decode($_GET["decompo"]);}
+	else if( isset($_POST["decompo"]) ){$tab = $_POST["decompo"];}
+	else{$tab = read("fichierSinusDecompo.txt");}
 
-	if( isset($_GET["res"]) )
-	{
-		$resmin = $_GET["res"];
-	}
-	else if ( isset($_POST["res"]) )
-	{
-		$resmin = json_decode($_POST["res"]);
-	}
-	else
-	{
-		$resmin = 0	;
-	}
+	if( isset($_GET["origin"]) ){$origin = json_decode($_GET["origin"]);}
+	else if( isset($_POST["origin"]) ){$origin = $_POST["origin"];}
+	else{$origin = read("fichierSinus.txt");}
+
+	if( isset($_GET["res"]) ){$resmin = $_GET["res"];}
+	else if ( isset($_POST["res"]) ){$resmin = json_decode($_POST["res"]);}
+	else{$resmin = 0;}
+
 	$res = recompositionFull($tab, $resmin);
 
-	$resultat = ['recompo'=>$res, 'origin'=>$tab, 'resolution_de_deb'=>$resmin];
+	$resultat = ['recompo'=>$res, 'origin'=>$origin, 'resolution'=>$resmin];
 	echo json_encode($resultat);
 ?>

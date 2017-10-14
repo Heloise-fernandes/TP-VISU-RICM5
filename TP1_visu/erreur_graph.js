@@ -16,18 +16,20 @@ $(document).ready(function() {
 					});
 				});
 			});
+
+			var trace = {
+				x: nivDetail,
+				y: erreurs[i],
+				name:'Détail supérieur à '+detail,
+				type:'scatter'
+			};
+			Plotly.addTraces(ErreursDetail,trace);
 		};
-
-		var trace = {
-			x: nivDetail,
-			y: erreurs[i],
-			type:'scatter'
-		};
-		Plotly.newPlot('Erreurs en fonction du niveau de détail', [trace]);
-
-
 	};
 
+	ErreursDetail = document.getElementById('ErreursDetail');
+
+	Plotly.newPlot('ErreursDetail', []);
 
 	requesterreurs();
 });

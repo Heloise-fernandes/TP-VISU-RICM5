@@ -14,7 +14,7 @@ function requestHistogramme()
 				}
 				var trace1 = {
 				  x: res1,
-				   type: 'histogram'
+				  type: 'histogram'
 				};
 
 				var data = [trace1];

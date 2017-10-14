@@ -110,36 +110,28 @@
 	
 
  	
-	if( isset($_GET["file"]) )
-	{
-		$tab = read($_GET["file"]);
-	}
-	else
-	{
-		$tab = read('tableau.txt');	
-	}
+	if( isset($_GET["file"]) ) {$tab = read($_GET["file"]);}
+	elseif (isset($_POST["file"]) ) {$tab = read($_POST["file"]);}
+	else {$tab = read('tableau.txt');	}
 
-	if( isset($_GET["res"]) )
-	{
-		$resmin = $_GET["res"];
-	}
-	else
-	{
-		$resmin = 0	;
-	}
+	if( isset($_GET["res"]) ) {$resmin = $_GET["res"];}
+	elseif (isset($_POST["res"]) ) {$tab = read($_POST["res"]);}
+	else {$resmin = 0	;}
 
-	if( isset($_GET["NivDetail"]) )
-	{
-		$nivDetail = $_GET["NivDetail"];
+	if( isset($_GET["nivDetail"]) ){ 
+		$nivDetail = $_GET["nivDetail"]; 
 		$res = decompositionFullDetails($tab, $nivDetail);
 	}
-	else
-	{
-		$nivDetail = NULL;
+	elseif(isset($_POST["nivDetail"]) ){ 
+		$nivDetail = $_POST["nivDetail"]; 
+		$res = decompositionFullDetails($tab, $nivDetail);
+	}
+	else {
+		$nivDetail = NULL; 
 		$res = decompositionFull($tab, $resmin);
 	}
 
-	$resultat = ['decompo'=>$res, 'origin'=> $tab, 'resolution_de_fin'=>$resmin, 'nivDetail'=>$nivDetail];
-	//write($resultat['decompo']);
+	$resultat = ['decompo'=>$res, 'origin'=> $tab, 'resolution'=>$resmin, 'nivDetail'=>$nivDetail];
+
 	echo json_encode($resultat);
 ?>

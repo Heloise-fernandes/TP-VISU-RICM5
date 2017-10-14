@@ -14,6 +14,7 @@ $(document).ready(function() {
 	            var trace1 = {
 				  x: tabAbscisse,
 				  y: res['origin'],
+				  name: 'Courbe d\'origine',
 				  type: 'scatter'
 				};
 
@@ -41,9 +42,12 @@ $(document).ready(function() {
 		 			x +=offset
 		 		}
 
+		 		var name =  'Courbe après '+reso+' décompositions'
+
 	            var trace1 = {
 				  x: tabAbscisse,
 				  y: moy,
+				  name: name,
 				  type: 'scatter'
 				};
 
@@ -67,13 +71,13 @@ $(document).ready(function() {
 			            decompo: decompo
 			        },
 			        success: function(data){   
-			        	//console.log(data);
-			        	//$('#tabReconstruct').html(data)
+
 			        	var res = JSON.parse(data);
 					
 			            var trace1 = {
 						  x: tabAbscisse,
 						  y: res['recompo'],
+						  name:'Reconstruction sans niveau de Détail',
 						  type: 'scatter'
 						};
 
@@ -85,6 +89,83 @@ $(document).ready(function() {
 		});
 
 	}
+
+	function requesterreurs(tabAbscisse)
+	{
+		var detail = 1;
+		//var nivDetail = [0.1,0.09,0.08,0.07,0.06,0.05,0.04,0.03,0.02,0.01];
+		var nivDetail = [1,0.1,0.01,0.001,0.0001];
+		var erreurs=[];
+		for (var i =0; i < 5; i++){
+			detail = nivDetail[i];
+			console.log(detail);
+			$.ajax({
+				url: "deconstruction.php",
+		        type:"post",
+		        async: false,
+		        data: {
+		            file: 'fichierSinus.txt',
+		            nivDetail: detail
+		        },
+		        success: function(data){
+		        	var resdec = JSON.parse(data);
+					var decompo = resdec['decompo'];
+					//console.log(resdec);
+
+					$.ajax({
+				        url: "reconstruction.php",
+				        type:"post",
+				        async: false,
+				        data: {
+				            decompo: decompo
+				        },
+				        success: function(data){
+				        	var resrec = JSON.parse(data);
+				        	var origin = resrec['origin'];
+				        	var recompo = resrec['recompo'];
+				        	//console.log(resrec);
+
+				        	$.ajax({
+						        url: "erreur.php",
+						        type:"post",
+						        async: false,
+						        data: {
+						            recompo: recompo,
+						            origin: origin,
+						            nivDetail: nivDetail[i]
+						        },
+						        success: function(data){   
+						        	var err = JSON.parse(data);
+						        	console.log(err);
+
+									erreurs[i] = err['erreur_quadra'];
+						        },
+						        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
+						    });
+				        },
+				        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
+				    });
+		        },
+		        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
+			});			
+		};
+		au = [0,1,2,3,4,5,6,7,8,9];
+		au = [0,-1,-2,-3,-4];
+		var trace = {
+			x: au,
+			y: erreurs,
+			type:'scatter'
+		};
+		var layout = {
+			xAxis: {
+				type: 'log',
+				autorange: true
+			}
+		};
+		Plotly.newPlot('ErreursDetail',[trace], layout);
+	};
+
+
 
 	var TailleTableau = 2048
 	//-1.0, 1.0, num=2048
@@ -113,6 +194,13 @@ $(document).ready(function() {
 
 	//requestDecompose();
 
+	//Erreur en fonction du niveau de détail
+
+	ErreursDetail = document.getElementById('ErreursDetail');
+
+
+
+	requesterreurs(x);
 
 
 
