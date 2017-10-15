@@ -50,11 +50,11 @@
 
 	if( isset($_GET["decompo"]) ){$tab = json_decode($_GET["decompo"]);}
 	else if( isset($_POST["decompo"]) ){$tab = $_POST["decompo"];}
-	else{$tab = read("fichierSinusDecompo.txt");}
+	else{$tab = read("../sources_files/fichierSinusDecompo.txt");}
 
 	if( isset($_GET["origin"]) ){$origin = json_decode($_GET["origin"]);}
 	else if( isset($_POST["origin"]) ){$origin = $_POST["origin"];}
-	else{$origin = read("fichierSinus.txt");}
+	else{$origin = read("../sources_files/fichierSinus.txt");}
 
 	if( isset($_GET["res"]) ){$resmin = $_GET["res"];}
 	else if ( isset($_POST["res"]) ){$resmin = json_decode($_POST["res"]);}

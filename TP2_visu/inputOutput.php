@@ -45,6 +45,6 @@
 
 	$resultat = [];
 	
-	echo json_encode($resultat);
+	//echo json_encode($resultat);
 
 ?>

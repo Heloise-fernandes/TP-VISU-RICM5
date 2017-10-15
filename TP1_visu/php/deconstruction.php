@@ -19,7 +19,7 @@
 	function write($tab)
 	{
 		$i = 0;
-		$monfichier = fopen("fichierSinusDecompo.txt", "w");
+		$monfichier = fopen("../sources_files/fichierSinusDecompo.txt", "w");
 		for ($i = 0; $i < sizeof($tab); $i++)
 		{
 			fputs($monfichier,$tab[$i]."\n");
@@ -40,23 +40,6 @@
 		return [$xindice, $yindice];
 	}
 
-
-	function decompositionDetails($values, $NivDetail)
-	{
-		$yindice = [];
-		$xindice = [];
-
-		for($i= 0; $i < sizeof($values)/2; $i++)
-		{
-			$xindice[$i] = ($values[2*$i] + $values[2*$i+1])/2;
-			$yindice[$i] = $values[2*$i] - $xindice[$i];
-			if ($yindice[$i] <  $NivDetail && $yindice[$i] > (-$NivDetail))
-			{
-				$yindice[$i] = 0;
-			}
-		}
-		return [$xindice, $yindice];
-	}
 
 	function decompositionFull($tab, $reso_min)
 	{
@@ -87,20 +70,39 @@
 
 	}
 	
-	function decompositionFullDetails($tab, $NivDetail)
+	function decompositionDetails($values, $NivDetail)
+	{
+		$yindice = [];
+		$xindice = [];
+
+		for($i= 0; $i < sizeof($values)/2; $i++)
+		{
+			$xindice[$i] = ($values[2*$i] + $values[2*$i+1])/2;
+			$yindice[$i] = $values[2*$i] - $xindice[$i];
+			if ($yindice[$i] <  $NivDetail && $yindice[$i] > (-$NivDetail))
+			{
+				$yindice[$i] = 0;
+			}
+		}
+		return [$xindice, $yindice];
+	}
+
+	function decompositionFullDetails($tab, $NivDetail, $reso_min)
 	{
 		$finalIndice = sizeof($tab);
-		$k = 0;
+		$resMax = log(sizeof($tab),2)/log(2,2);
 		$finalTab = array();
-		while($finalIndice>1)
+
+		while($finalIndice>1  && $resMax>$reso_min)
 		{
 			$res = decompositionDetails($tab, $NivDetail);
-			$xindice = $res[0];
-			$yindice = $res[1];
-			$k++;
+			$xindice = $res[0];$yindice = $res[1];
+
 			$finalIndice = sizeof($xindice);
 			$tab = $xindice;
 			$finalTab = array_merge($yindice,$finalTab);
+
+			$resMax--;
 		}
 		$finalTab = array_merge($tab,$finalTab);
 		return $finalTab;
@@ -108,16 +110,18 @@
 	}
 
 	
-
- 	
+ 	//nom du fichier
 	if( isset($_GET["file"]) ) {$tab = read($_GET["file"]);}
 	elseif (isset($_POST["file"]) ) {$tab = read($_POST["file"]);}
-	else {$tab = read('tableau.txt');	}
+	else {$tab = read('../sources_files/tableau.txt');	}
 
+	//resolution minimum
 	if( isset($_GET["res"]) ) {$resmin = $_GET["res"];}
 	elseif (isset($_POST["res"]) ) {$tab = read($_POST["res"]);}
 	else {$resmin = 0	;}
 
+
+	//niveau de détail
 	if( isset($_GET["nivDetail"]) ){ 
 		$nivDetail = $_GET["nivDetail"]; 
 		$res = decompositionFullDetails($tab, $nivDetail);
@@ -130,6 +134,7 @@
 		$nivDetail = NULL; 
 		$res = decompositionFull($tab, $resmin);
 	}
+
 
 	$resultat = ['decompo'=>$res, 'origin'=> $tab, 'resolution'=>$resmin, 'nivDetail'=>$nivDetail];
 

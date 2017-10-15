@@ -37,4 +37,21 @@
 		return $moyenne;
 	}
 
+
+	$moyenne = [];
+	$detailFull = [];
+
+	if( isset($_POST["moyenne"]) )
+	{
+		$moyenne = read($_POST["moyenne"]);
+	}
+	
+	if( isset($_POST["detail"]) )
+	{
+		$detailFull = read($_POST["detail"]);
+	}
+	
+	$resultat = recomposition($moyenne, $detailFull);
+	
+	echo json_encode($resultat);
 ?>
