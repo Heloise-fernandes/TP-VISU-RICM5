@@ -94,11 +94,11 @@ $(document).ready(function() {
 	{
 		var detail = 1;
 		//var nivDetail = [0.1,0.09,0.08,0.07,0.06,0.05,0.04,0.03,0.02,0.01];
-		var nivDetail = [1,0.1,0.01,0.001,0.0001];
+		var nivDetail = [1,0.1,0.01,0.001,0.0001,0.00001,0.000001,0.0000001,0.00000001,0.000000001];
 		var erreurs=[];
-		for (var i =0; i < 5; i++){
+		for (var i =0; i < 10; i++){
 			detail = nivDetail[i];
-			console.log(detail);
+
 			$.ajax({
 				url: "deconstruction.php",
 		        type:"post",
@@ -110,7 +110,6 @@ $(document).ready(function() {
 		        success: function(data){
 		        	var resdec = JSON.parse(data);
 					var decompo = resdec['decompo'];
-					//console.log(resdec);
 
 					$.ajax({
 				        url: "reconstruction.php",
@@ -123,7 +122,6 @@ $(document).ready(function() {
 				        	var resrec = JSON.parse(data);
 				        	var origin = resrec['origin'];
 				        	var recompo = resrec['recompo'];
-				        	//console.log(resrec);
 
 				        	$.ajax({
 						        url: "erreur.php",
@@ -140,19 +138,19 @@ $(document).ready(function() {
 
 									erreurs[i] = err['erreur_quadra'];
 						        },
-						        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
+						        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("erreur.php","fail");}
 						    });
 				        },
-				        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
+				        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("recomposition.php","fail");}
 				    });
 		        },
-		        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("??? ?? ?????? ??????? ????","fail");}
+		        error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("decomposition.php","fail");}
 			});			
 		};
-		au = [0,1,2,3,4,5,6,7,8,9];
-		au = [0,-1,-2,-3,-4];
+		//log = [0,1,2,3,4,5,6,7,8,9];
+		log = [0,-1,-2,-3,-4,-5,-6,-7,-8,-9];
 		var trace = {
-			x: au,
+			x: log,
 			y: erreurs,
 			type:'scatter'
 		};
