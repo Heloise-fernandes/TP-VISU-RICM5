@@ -19,7 +19,7 @@
 	function write($tab)
 	{
 		$i = 0;
-		$monfichier = fopen("fichierSinusDecompo.txt", "w");
+		$monfichier = fopen("../sources_files/fichierSinusDecompo.txt", "w");
 		for ($i = 0; $i < sizeof($tab); $i++)
 		{
 			fputs($monfichier,$tab[$i]."\n");
@@ -41,7 +41,7 @@
 
 	if( isset($_GET["recompo"]) ){ $recompo = $_GET["recompo"];}
 	elseif( isset($_POST["recompo"]) ){ $recompo = $_POST["recompo"];}
-	else { $recompo = read('tableau.txt');}
+	else { $recompo = read('../sources_files/tableau.txt');}
 
 	if( isset($_GET["origin"]) ){ $origin = $_GET["origin"];}
 	elseif( isset($_POST["origin"]) ){ $origin = $_POST["origin"];}
