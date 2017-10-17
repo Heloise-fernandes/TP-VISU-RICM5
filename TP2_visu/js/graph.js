@@ -10,8 +10,19 @@ $(document).ready(function() {
 	    var w = canvas.width;
 	    var coef = 50;
 
+	    
+	    var count = 0;
+	    if(tableaux.length==undefined)
+	    {
+	    	count = Object.keys(tableaux).length;
+	    }
+	    else{
+	    	count = tableaux.length;
+	    }
+
 	    contexte.beginPath();
- 		for(var i = 0; i < tableaux.length; i++)
+	    contexte.moveTo( tableaux[0].x *coef, (h - tableaux[0].y*coef));
+ 		for(var i = 1; i < count; i++)
  		{
  			contexte.lineTo( tableaux[i].x *coef, (h - tableaux[i].y*coef));
  		}
@@ -22,9 +33,13 @@ $(document).ready(function() {
 	{
 		 $.get('../php/decomposition.php',function(data){
 			var res = JSON.parse(data);
-			drawImage(idCanvas,res['Moyenne'])
+			drawImage(idCanvas,res['Moyenne']);
+			drawImage("canvasOrigin",res['origin']);
+
 		});
 	}
+
+	
 
 	displayCroc("canvas");
         

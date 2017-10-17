@@ -3,7 +3,7 @@ require_once('./inputOutput.php');
 
 	function decomposition($tab)
 	{
-
+//$tab[$i] = ['x' => floatval($slipLine[0]), 'y' => floatval($slipLine[1]) ];
 		$tab_decompose=[];
 		$tab_details=[];
 		$count = sizeof($tab);
@@ -14,6 +14,7 @@ require_once('./inputOutput.php');
 						+3*$tab[(2*$i)%$count]['x']-$tab[(2*$i+1)%$count]['x'])), 
 			'y' => floatval((1/4)*($tab[(2*$i-2)%$count]['y']+3*$tab[(2*$i-1)%$count]['y']
 						+3*$tab[(2*$i)%$count]['y']-$tab[(2*$i+1)%$count]['y'])) ];
+
 			$tab_details[$i]=['x' => floatval((1/4)*($tab[(2*$i-2)%$count]['x']-3*$tab[(2*$i-1)%$count]['x']
 						+3*$tab[(2*$i)%$count]['x']-$tab[(2*$i+1)%$count]['x'])), 
 			'y' => floatval((1/4)*($tab[(2*$i-2)%$count]['y']-3*$tab[(2*$i-1)%$count]['y']
@@ -24,6 +25,6 @@ require_once('./inputOutput.php');
 
         $tab=read("../sources_files/herisson512.d");
         $res= decomposition($tab);
-	$resultat = ['Moyenne'=>$res[0], 'Detail'=>$res[1]];
+	$resultat = ['origin'=>$tab,'Moyenne'=> $res[0], 'Detail'=> $res[1]];
 	echo json_encode($resultat);
 ?>
