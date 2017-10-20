@@ -1,22 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
 require_once('./inputOutput.php');
 
@@ -38,17 +19,22 @@ require_once('./inputOutput.php');
 						+3*$tab[(2*$i)%$count]['x']-$tab[(2*$i+1)%$count]['x'])), 
 			'y' => floatval((1/4)*($tab[(2*$i-2)%$count]['y']-3*$tab[(2*$i-1)%$count]['y']
 						+3*$tab[(2*$i)%$count]['y']-$tab[(2*$i+1)%$count]['y'])) ]; 		
-			
+
 		}
  		return [$tab_details, $tab_decompose];
 	}
 
-    $tab=read("../sources_files/herisson512.d");
+	if( isset($_GET["file"]) )
+	{
+		$tab = read($_GET["file"]);
+	}
+	else
+	{
+		$tab = read('../sources_files/crocodile512.d');	
+	}
+
+  
     $res= decomposition($tab);
-   // $resultatMoy = $res[1];
-	
 	$resultat = ['origin'=>$tab,'moyenne'=> array_values($res[1]), 'detail'=> array_values($res[0])];
-	//var_dump($resultat);
-	//print_r($resultat);
 	echo json_encode($resultat);
 ?>
