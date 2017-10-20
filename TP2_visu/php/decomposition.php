@@ -35,6 +35,10 @@ require_once('./inputOutput.php');
 
   
     $res= decomposition($tab);
+
 	$resultat = ['origin'=>$tab,'moyenne'=> array_values($res[1]), 'detail'=> array_values($res[0])];
+	write($resultat['moyenne'], "moyenne.d");
+	write($resultat['detail'], "detail.d" );
+
 	echo json_encode($resultat);
 ?>
