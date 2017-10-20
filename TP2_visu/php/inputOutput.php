@@ -11,8 +11,20 @@
 		/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
 		foreach ($lines as $lineNumber => $lineContent)
 		{
+
 			$slipLine = explode(" ", $lineContent);
-			$tab[$i] = ['x' => floatval($slipLine[0]), 'y' => floatval($slipLine[1]) ];
+			
+			$x = null;
+			$y = null;
+			for($j=0;$j<sizeof($slipLine);$j++)
+			{
+				if($slipLine[$j]!=' ')
+				{
+					if($x!=null){$y = $slipLine[$j];}
+					else{$x = $slipLine[$j];}
+				}
+			}
+			$tab[$i] = ['x' => floatval($x), 'y' => floatval($y) ];
 			$i++;
 		}
 
@@ -43,8 +55,8 @@
 		$tab = read('../sources_files/crocodile512.d');	
 	}
 
-	$resultat = [];
+	//$resultat = [];
 	
-	//echo json_encode($resultat);
+	//echo json_encode($tab);
 
 ?>

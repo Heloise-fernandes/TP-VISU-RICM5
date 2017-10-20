@@ -4,21 +4,14 @@ $(document).ready(function() {
 	//context.beginPath();
 	function drawImage(idCanvas,tableaux)
 	{
-	    var canvas = document.getElementById("canvas");
+	    var canvas = document.getElementById(idCanvas);
 	    var contexte = canvas.getContext("2d");
 	    var h = canvas.height;
 	    var w = canvas.width;
-	    var coef = 50;
+	    var coef = 20;
 
 	    
-	    var count = 0;
-	    if(tableaux.length==undefined)
-	    {
-	    	count = Object.keys(tableaux).length;
-	    }
-	    else{
-	    	count = tableaux.length;
-	    }
+	    var count = tableaux.length;
 
 	    contexte.beginPath();
 	    contexte.moveTo( tableaux[0].x *coef, (h - tableaux[0].y*coef));
@@ -29,11 +22,11 @@ $(document).ready(function() {
  		contexte.stroke();
 	}
 	
-	function displayCroc(idCanvas)
+	function displayCroc()
 	{
-		 $.get('../php/decomposition.php',function(data){
+		 $.get('../php/decomposition.php?file=../sources_files/sh.d',function(data){
 			var res = JSON.parse(data);
-			drawImage(idCanvas,res['Moyenne']);
+			drawImage("canvas",res['moyenne']);
 			drawImage("canvasOrigin",res['origin']);
 
 		});
@@ -41,7 +34,7 @@ $(document).ready(function() {
 
 	
 
-	displayCroc("canvas");
+	displayCroc();
         
 
 });
