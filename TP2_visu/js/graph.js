@@ -33,7 +33,7 @@ $(document).ready(function() {
 	{
 		 $.get('../php/decomposition.php',function(data){
 			var res = JSON.parse(data);
-			drawImage(idCanvas,res['Moyenne']);
+			drawImage(idCanvas,res['moyenne']);
 			drawImage("canvasOrigin",res['origin']);
 
 		});
