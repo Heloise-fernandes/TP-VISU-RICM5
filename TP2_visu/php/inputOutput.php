@@ -31,15 +31,15 @@
 		return $tab;
 	}
 
-	function write($tab)
+	function write($tab, $name)
 	{
 		$i = 0;
 		/*Ouvre le fichier et retourne un tableau contenant une ligne par élément*/
-		$monfichier = fopen("../sources_files/fichierSinusDecompo.txt", "w");
+		$monfichier = fopen("../sources_files/".$name, "w");
 		/*On parcourt le tableau $lines et on affiche le contenu de chaque ligne précédée de son numéro*/
 		for ($i = 0; $i < sizeof($tab); $i++)
 		{
-			fputs($monfichier,$tab[$i]."\n");
+			fputs($monfichier,$tab[$i]['x']." ".$tab[$i]['y']."\n");
 			//fputs($monfichier,"blop");
 		}
 		fclose($monfichier);

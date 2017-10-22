@@ -61,9 +61,12 @@ require_once('./inputOutput.php');
 		
 		$tab = read('../sources_files/herisson512.d');	
 	}
-	//$detail=[];
+
     $res= decomposition_totale($tab);
 	$resultat = ['origin'=>$tab,'moyenne'=> array_values($res[0]), 'detail'=> array_values($res[1])];
+	write($resultat['moyenne'], "moyenne.d");
+	write($resultat['detail'], "detail.d" );
+
 	echo json_encode($resultat);
 	
 ?>

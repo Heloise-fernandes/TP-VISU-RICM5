@@ -43,12 +43,12 @@
 
 	if( isset($_POST["moyenne"]) )
 	{
-		$moyenne = read($_POST["moyenne"]);
+		$moyenne = $_POST["moyenne"];
 	}
 	
 	if( isset($_POST["detail"]) )
 	{
-		$detailFull = read($_POST["detail"]);
+		$detailFull = $_POST["detail"];
 	}
 	
 	$resultat = recomposition($moyenne, $detailFull);
