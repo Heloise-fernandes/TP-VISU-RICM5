@@ -5,10 +5,10 @@ require_once('./inputOutput.php');
 	function decomposition_totale($tab,$decompo){
 		/* premiere decomposition du tableau*/
 		$details=[];
-		$res=[];
-		$res=decomposition($tab,$details);
-		$etapeDecompo = 0;
+		$res=[];		
+		$etapeDecompo = 1;
 
+		$res=decomposition($tab,$details);
 		while(sizeof($res[0]) > 4 && $decompo > $etapeDecompo){
 			$res=decomposition($res[0],$res[1]);
 			$etapeDecompo++;
@@ -61,7 +61,7 @@ require_once('./inputOutput.php');
 	else
 	{
 		
-		$tab = read('../sources_files/herisson512.d');	
+		$tab = read('../sources_files/crocodile512.d');	
 	}
 
 	if( isset($_GET["nDecompo"]) )
@@ -70,7 +70,7 @@ require_once('./inputOutput.php');
 	}
 	else
 	{
-		$numDecompo = log(sizeof($tab),2)/log(2,2)-3;
+		$numDecompo = log(sizeof($tab),2)/log(2,2)-2;
 	}
 
 	if($numDecompo==0)

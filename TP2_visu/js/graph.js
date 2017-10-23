@@ -21,10 +21,10 @@ $(document).ready(function() {
 
 	function decompositionRecompositionFull(name, numDecompo)
 	{
-		$.get('../php/decomposition.php?file=../sources_files/'+name+'&nDecompo='+numDecompo,function(data){
+		var nbR = 5;
+		$.get('../php/decomposition.php?file=../sources_files/'+name,function(data){
 			var res = JSON.parse(data);
-			console.log(res['origin'].length);
-			console.log(res['moyenne'].length);
+
 			$.ajax({
 				url: "../php/recomposition.php",
 				type:"post",
@@ -32,10 +32,11 @@ $(document).ready(function() {
 				data: {
 					moyenne: res['moyenne'],
 					detail: res['detail'],
+					nbRecompo : nbR,
 				},
 				success: function(dataPOST){   
 					var reconstruit = JSON.parse(dataPOST);
-					console.log(reconstruit);
+					console.log(reconstruit.length);
 					drawImage("canvasRecompo", reconstruit,20);
 				},
 				error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("recomposition.php","fail");}
@@ -44,29 +45,30 @@ $(document).ready(function() {
 		});
 	}	
 
-	function decompositionSimple(numDecompo,name)
+	function decompositionSimple(numDecompo,name,idReq)
 	{
 		$.get('../php/decomposition.php?file=../sources_files/'+name+'&nDecompo='+numDecompo,function(data){
 			//console.log(data);
 			var res = JSON.parse(data);
-			console.log(numDecompo);
+			if(numDecompo==1){	drawImage("canvas"+(numDecompo-1),res['origin'],18);}
 			drawImage("canvas"+numDecompo,res['moyenne'],18);
+			
 		});
 	}
 
 	function décomposition512Points(name)
 	{
 		var numTotal = 9;
-		for(var i = 0; i < numTotal-2; i++ )
+		for(var i = 1; i < numTotal-1; i++ )
 		{
-			decompositionSimple(i,name);
+			decompositionSimple(i,name,i);
 		}
 	}
 
 	
 
 	décomposition512Points('crocodile512.d');
-	decompositionRecompositionFull('crocodile512.d', 1);
+	decompositionRecompositionFull('crocodile512.d', 5);
         
 
 });
