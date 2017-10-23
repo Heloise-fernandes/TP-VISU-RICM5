@@ -35,11 +35,30 @@
 		return $finalRes;
 	}
 
-	function recomposition($moyenne, $detailFull,$nbRecompo)
+	function recomposition($moyenne, $detailFull)
+	{
+		$offset = 0;
+		$res = $moyenne;
+		
+
+		while($offset<sizeof($detailFull))
+		{
+			$detail = extractDetail($detailFull, sizeof($res), $offset);
+			$offset = $offset + sizeof($res);
+			$res =  recompositionUneEtape($res, $detail);
+		}
+		
+		return $res;
+	}
+
+	function recompositionNum($moyenne, $detailFull,$nbRecompo)
 	{
 		$offset = 0;
 		$res = $moyenne;
 		$nbDeRecomposition = 0;
+		
+		if($nbRecompo==null){$nbRecompo=sizeof($moyenne);}
+
 		while($offset<sizeof($detailFull) && $nbDeRecomposition<$nbRecompo)
 		{
 			$detail = extractDetail($detailFull, sizeof($res), $offset);
@@ -88,16 +107,17 @@
 	if( isset($_POST["nbRecompo"]))
 	{
 		$nbRecompo = $_POST["nbRecompo"];
+		$resultat = recompositionNum($moyenne, $detailFull,$nbRecompo);
 	}
 	else
 	{
-		$nbRecompo = null;
+		$resultat = recomposition($moyenne, $detailFull);
 	}
 
 	//$d = extractDetail($detailFull,4,0);
 	//$resultat = recompositionUneEtape($moyenne, $d);
 	
-	$resultat = recomposition($moyenne, $detailFull,$nbRecompo);
+	
 	
 	echo json_encode($resultat);
 ?>
