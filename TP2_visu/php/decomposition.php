@@ -2,16 +2,18 @@
 require_once('./inputOutput.php');
 
 
-	function decomposition_totale($tab){
+	function decomposition_totale($tab,$decompo){
 		/* premiere decomposition du tableau*/
 		$details=[];
 		$res=[];
 		$res=decomposition($tab,$details);
+		$etapeDecompo = 0;
 
-		while(sizeof($res[0]) > 4){
+		while(sizeof($res[0]) > 4 && $decompo > $etapeDecompo){
 			$res=decomposition($res[0],$res[1]);
+			$etapeDecompo++;
 		}
-		 return $res;
+		return $res;
 	}
 
 
@@ -62,10 +64,27 @@ require_once('./inputOutput.php');
 		$tab = read('../sources_files/herisson512.d');	
 	}
 
-    $res= decomposition_totale($tab);
-	$resultat = ['origin'=>$tab,'moyenne'=> array_values($res[0]), 'detail'=> array_values($res[1])];
-	write($resultat['moyenne'], "moyenne.d");
-	write($resultat['detail'], "detail.d" );
+	if( isset($_GET["nDecompo"]) )
+	{
+		$numDecompo = $_GET["nDecompo"];
+	}
+	else
+	{
+		$numDecompo = log(sizeof($tab),2)/log(2,2)-3;
+	}
+
+	if($numDecompo==0)
+	{
+		$resultat = ['origin'=>$tab,'moyenne'=> array_values($tab), 'detail'=> array_values([]), 'nbDecompo'=> $numDecompo];
+	}
+	else
+	{
+		$res= decomposition_totale($tab,$numDecompo);
+		$resultat = ['origin'=>$tab,'moyenne'=> array_values($res[0]), 'detail'=> array_values($res[1]), 'nbDecompo'=> $numDecompo];
+	}
+    
+	/*write($resultat['moyenne'], "moyenne.d");
+	write($resultat['detail'], "detail.d" );*/
 
 	echo json_encode($resultat);
 	

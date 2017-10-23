@@ -9,27 +9,22 @@ $(document).ready(function() {
 	    var h = canvas.height;
 	    var w = canvas.width;
 
-	    var coef = 30;
-	    
-	    var count = tableaux.length;
-
 	    contexte.beginPath();
 	    contexte.moveTo( (w/2 -tableaux[0].x *coef), (h/2 - tableaux[0].y*coef));
- 		for(var i = 1; i < count; i++)
+ 		for(var i = 1; i < tableaux.length; i++)
  		{
  			contexte.lineTo( (w/2 -tableaux[i].x *coef), (h/2 - tableaux[i].y*coef));
  		}
  		contexte.lineTo( (w/2 -tableaux[0].x *coef), (h/2 - tableaux[0].y*coef));
  		contexte.stroke();
 	}
-	
-	function displayCroc()
-	{
-		 $.get('../php/decomposition.php?file=../sources_files/crocodile512.d',function(data){
-			var res = JSON.parse(data);
 
-			drawImage("canvas",res['moyenne']);
-			drawImage("canvasOrigin",res['origin']);
+	function decompositionRecompositionFull(name, numDecompo)
+	{
+		$.get('../php/decomposition.php?file=../sources_files/'+name+'&nDecompo='+numDecompo,function(data){
+			var res = JSON.parse(data);
+			console.log(res['origin'].length);
+			console.log(res['moyenne'].length);
 			$.ajax({
 				url: "../php/recomposition.php",
 				type:"post",
@@ -38,20 +33,40 @@ $(document).ready(function() {
 					moyenne: res['moyenne'],
 					detail: res['detail'],
 				},
-				success: function(data){   
-					var reconstruit = JSON.parse(data);
-					drawImage("canvasRecompo", reconstruit);
+				success: function(dataPOST){   
+					var reconstruit = JSON.parse(dataPOST);
+					console.log(reconstruit);
+					drawImage("canvasRecompo", reconstruit,20);
 				},
 				error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("recomposition.php","fail");}
 			});
 
 		});
+	}	
+
+	function decompositionSimple(numDecompo,name)
+	{
+		$.get('../php/decomposition.php?file=../sources_files/'+name+'&nDecompo='+numDecompo,function(data){
+			//console.log(data);
+			var res = JSON.parse(data);
+			console.log(numDecompo);
+			drawImage("canvas"+numDecompo,res['moyenne'],18);
+		});
+	}
+
+	function décomposition512Points(name)
+	{
+		var numTotal = 9;
+		for(var i = 0; i < numTotal-2; i++ )
+		{
+			decompositionSimple(i,name);
+		}
 	}
 
 	
 
-	displayCroc();
-
+	décomposition512Points('crocodile512.d');
+	decompositionRecompositionFull('crocodile512.d', 1);
         
 
 });

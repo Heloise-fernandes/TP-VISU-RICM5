@@ -8,14 +8,29 @@
 		$mod = sizeof($moyenne);
 		for($i = 0; $i < sizeof($moyenne); $i++)
 		{
-			$finalRes[2*$i] = [ 
-					'x' => (3/4) * ($moyenne[$i]['x'] + $detail[$i]['x']) + (1/4) * ($moyenne[$i+1]['x'] %$mod - $detail[$i+1]['x'] %$mod) ,
-					'y' => (3/4) * ($moyenne[$i]['y'] + $detail[$i]['y']) + (1/4) * ($moyenne[$i+1]['y'] %$mod - $detail[$i+1]['y'] %$mod)
+			if($i == sizeof($moyenne)-1 )
+			{
+				$finalRes[2*$i] = [ 
+					'x' => (3/4) * ($moyenne[$i]['x'] + $detail[$i]['x']) + (1/4) * ($moyenne[0]['x'] - $detail[01]['x']) ,
+					'y' => (3/4) * ($moyenne[$i]['y'] + $detail[$i]['y']) + (1/4) * ($moyenne[0]['y'] - $detail[0]['y'])
 					];
-			$finalRes[2*$i+1] = [ 
-					'x' => (1/4) * ($moyenne[$i]['x'] + $detail[$i]['x']) + (3/4) * ($moyenne[$i+1]['x'] %$mod - $detail[$i+1]['x'] %$mod) ,
-					'y' => (1/4) * ($moyenne[$i]['y'] + $detail[$i]['y']) + (3/4) * ($moyenne[$i+1]['y'] %$mod - $detail[$i+1]['y'] %$mod)
+				$finalRes[2*$i+1] = [ 
+						'x' => (1/4) * ($moyenne[$i]['x'] + $detail[$i]['x']) + (3/4) * ($moyenne[0]['x'] - $detail[0]['x']) ,
+						'y' => (1/4) * ($moyenne[$i]['y'] + $detail[$i]['y']) + (3/4) * ($moyenne[0]['y'] - $detail[0]['y'])
+						];
+			}
+			else
+			{
+				$finalRes[2*$i] = [ 
+					'x' => (3/4) * ($moyenne[$i]['x'] + $detail[$i]['x']) + (1/4) * ($moyenne[$i+1]['x'] - $detail[$i+1]['x']) ,
+					'y' => (3/4) * ($moyenne[$i]['y'] + $detail[$i]['y']) + (1/4) * ($moyenne[$i+1]['y'] - $detail[$i+1]['y'])
 					];
+				$finalRes[2*$i+1] = [ 
+						'x' => (1/4) * ($moyenne[$i]['x'] + $detail[$i]['x']) + (3/4) * ($moyenne[$i+1]['x'] - $detail[$i+1]['x']) ,
+						'y' => (1/4) * ($moyenne[$i]['y'] + $detail[$i]['y']) + (3/4) * ($moyenne[$i+1]['y'] - $detail[$i+1]['y'])
+						];
+			}
+			
 		}
 		return $finalRes;
 	}
@@ -45,13 +60,21 @@
 	{
 		$moyenne = $_POST["moyenne"];
 	}
+	else
+	{
+		$moyenne = read('../sources_files/moyenne.d');	
+	}
 	
 	if( isset($_POST["detail"]) )
 	{
 		$detailFull = $_POST["detail"];
 	}
+	else
+	{
+		$detailFull = read('../sources_files/detail.d');	
+	}
 	
-	$resultat = recomposition($moyenne, $detailFull);
+	$resultat = recompositionUneEtape($moyenne, $detailFull);
 	
 	echo json_encode($resultat);
 ?>
