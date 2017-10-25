@@ -8,7 +8,7 @@ require_once('./inputOutput.php');
 		$res=[];
 		$res=decomposition($tab,$details);
 
-		while(sizeof($res[0]) > 4){
+		while(sizeof($res[0]) > 20){
 			$res=decomposition($res[0],$res[1]);
 		}
 		 return $res;
@@ -44,7 +44,7 @@ require_once('./inputOutput.php');
 			  		
 			$details[$i+$tbs]=['x' => floatval(($tab[2*$i-2]['x']+3*(-$tab[2*$i-1]['x']
 						+$tab[2*$i]['x'])-$tab[2*$i+1]['x'])/4.0), 
-			'y' => floatval(($tab[2*$i-2]['y']+3*(-$tab[2*$i-1]['y']
+					'y' => floatval(($tab[2*$i-2]['y']+3*(-$tab[2*$i-1]['y']
 						+$tab[2*$i]['y'])-$tab[2*$i+1]['y'])/4.0) ]; 
 			
 		}
