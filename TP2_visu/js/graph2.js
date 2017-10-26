@@ -21,7 +21,7 @@ $(document).ready(function() {
 
 	function decompositionRecomposition(name, numRecompo)
 	{
-		$.get('../php/decomposition.php?file=../sources_files/'+name+'&modif',function(data){
+		$.get('../php/decomposition.php?file=../sources_files/'+name+'&modif=true',function(data){
 			var res = JSON.parse(data);
 
 			$.ajax({
