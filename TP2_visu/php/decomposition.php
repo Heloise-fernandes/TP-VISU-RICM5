@@ -123,7 +123,8 @@ require_once('./inputOutput.php');
 	else if(isset($_GET["epsilon"]))
 	{
 		$epsilon = $_GET["epsilon"];
-		$res= decomposition_totale($tab,$numDecompo,true,$epsilon);
+		if($_GET["modif"])$res=decomposition_Modification_Elements($tab,$numDecompo);
+		else $res= decomposition_totale($tab,$numDecompo,true,$epsilon);
 		$resultat = ['origin'=>$tab,'moyenne'=> array_values($res[0]), 'detail'=> array_values($res[1]), 'nbDecompo'=> $numDecompo];
 	}
 	else
