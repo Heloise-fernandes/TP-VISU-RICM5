@@ -113,5 +113,5 @@ $(document).ready(function() {
 	var plotData = plotDiv.data;
 
 	//calcul
-	calculErreurGood('sh.d',plotData);
+	calculErreurGood('herisson512.d',plotData);
 });	
