@@ -24,6 +24,7 @@ $(document).ready(function() {
 			var res = JSON.parse(data);
 			console.log(res['moyenne'].length);
 			console.log(res['detail'].length);
+			drawImage("deconstruit"+i, res['moyenne'],20);
 			$.ajax({
 				url: "../php/recomposition.php",
 				type:"post",
@@ -36,7 +37,7 @@ $(document).ready(function() {
 					//console.log(reconstruit);
 					var reconstruit = JSON.parse(dataPOST);
 					
-					drawImage("canvas"+i, reconstruit,20);
+					drawImage("reconstruit"+i, reconstruit,20);
 				},
 				error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("recomposition.php","fail");}
 			});
@@ -46,7 +47,7 @@ $(document).ready(function() {
 
 	function loadErrorFiles()
 	{
-		var modif = [0, 3, 3, 3];
+		var modif = [0, 3, 2, 1];
 		for(var i = 0; i < modif.length; i++)
 		{
 			decompositionRecomposition('crocodile512.d', modif[i],i);
