@@ -56,10 +56,10 @@ $(document).ready(function() {
 	//l'ensemble des epsilons à calculer
 	function calculErreurOther(name, reconstruit, plotData)
 	{
-		var epsilon = [1, 0.5, 0.1, 0.01, 0.005, 2, 0.75, 0.25];
+		var epsilon = [1, 0.5, 0.1, 0.01, 0.005, 2, 0.75, 0.25,  0];
 		for(var i = 0; i < epsilon.length; i++)
 		{
-			decompositionRecomposition('crocodile512.d', epsilon[i],plotData,reconstruit);
+			decompositionRecomposition(name, epsilon[i],plotData,reconstruit);
 		}
 	}
 
@@ -113,5 +113,5 @@ $(document).ready(function() {
 	var plotData = plotDiv.data;
 
 	//calcul
-	calculErreurGood('crocodile512.d',plotData);
+	calculErreurGood('sh.d',plotData);
 });	
