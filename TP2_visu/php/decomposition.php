@@ -73,6 +73,31 @@ require_once('./inputOutput.php');
 		}
  		return [$tab_decompose ,$details];
 	}
+        	
+	function decomposition_Modification_Elements($tab,$decompo){
+		/* premiere decomposition du tableau*/
+		$details=[];
+		$res=[];		
+		$etapeDecompo = 1;
+		$changement=0.01;
+		$nbElementsChangement=3;
+		$res=decomposition($tab,$details);
+		while(sizeof($res[0]) > 4 && $decompo > $etapeDecompo){
+			
+			$res=decomposition($res[0],$res[1]);
+			
+			$etapeDecompo++;
+		}
+		$resDecomp=$res[0];
+		for($i=0;$i<$nbElementsChangement;$i++){
+			$resDecomp[$i]['x']+$changement;
+			$resDecomp[$i]['y']+$changement;
+		}
+		return [$resDecomp,$res[1]];
+		
+	}
+	
+
 	if( isset($_GET["file"]) )
 	{
 		
