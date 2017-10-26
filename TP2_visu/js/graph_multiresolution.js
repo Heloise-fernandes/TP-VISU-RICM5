@@ -50,6 +50,7 @@ $(document).ready(function() {
 		var epsilon = [1, 0.5, 0.1, 0.01];
 		for(var i = 0; i < epsilon.length; i++)
 		{
+			//decompositionRecomposition('crocodile512.d', epsilon[i],i);
 			decompositionRecomposition('crocodile512.d', epsilon[i],i);
 		}
 	}

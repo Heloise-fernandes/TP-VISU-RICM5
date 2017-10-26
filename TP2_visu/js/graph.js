@@ -79,6 +79,8 @@ $(document).ready(function() {
 
 	décomposition512Points('crocodile512.d');
 	recomposition512Points('crocodile512.d');
+	//décomposition512Points('sh.d');
+	//recomposition512Points('sh.d');
         
 
 });
