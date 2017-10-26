@@ -74,13 +74,11 @@ require_once('./inputOutput.php');
  		return [$tab_decompose ,$details];
 	}
         	
-	function decomposition_Modification_Elements($tab,$decompo){
+	function decomposition_Modification_Elements($tab,$decompo,$modif){
 		/* premiere decomposition du tableau*/
 		$details=[];
 		$res=[];		
 		$etapeDecompo = 1;
-		$changement=0.01;
-		$nbElementsChangement=3;
 		$res=decomposition($tab,$details);
 		while(sizeof($res[0]) > 4 && $decompo > $etapeDecompo){
 			
@@ -89,9 +87,10 @@ require_once('./inputOutput.php');
 			$etapeDecompo++;
 		}
 		$resDecomp=$res[0];
-		for($i=0;$i<$nbElementsChangement;$i++){
-			$resDecomp[$i]['x']+$changement;
-			$resDecomp[$i]['y']+$changement;
+		for($i=0;$i<sizeof($resDecomp);$i++){
+			$changement = rand(0,20)-10;
+			$resDecomp[$i]['x'] = $resDecomp[$i]['x']+($changement*$modif)/10;
+			$resDecomp[$i]['y'] = $resDecomp[$i]['y']+($changement*$modif)/10;
 		}
 		return [$resDecomp,$res[1]];
 		
@@ -123,8 +122,13 @@ require_once('./inputOutput.php');
 	else if(isset($_GET["epsilon"]))
 	{
 		$epsilon = $_GET["epsilon"];
-		if($_GET["modif"])$res=decomposition_Modification_Elements($tab,$numDecompo);
-		else $res= decomposition_totale($tab,$numDecompo,true,$epsilon);
+		$res= decomposition_totale($tab,$numDecompo,true,$epsilon);
+		$resultat = ['origin'=>$tab,'moyenne'=> array_values($res[0]), 'detail'=> array_values($res[1]), 'nbDecompo'=> $numDecompo];
+	}
+	else if(isset($_GET["modif"]))
+	{
+		$modif = $_GET["modif"];
+		$res=decomposition_Modification_Elements($tab,$numDecompo,$modif);
 		$resultat = ['origin'=>$tab,'moyenne'=> array_values($res[0]), 'detail'=> array_values($res[1]), 'nbDecompo'=> $numDecompo];
 	}
 	else

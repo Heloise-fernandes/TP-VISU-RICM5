@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	//calul taux d'erreu en x et en y
+	//calcul taux d'erreur en x et en y
 	function calculErreur(reconstructError, reconstruct)
 	{
 		var tauxX = 0;

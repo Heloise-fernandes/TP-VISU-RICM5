@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-
 	//context.beginPath();
 	function drawImage(idCanvas,tableaux,coef)
 	{
@@ -19,11 +18,12 @@ $(document).ready(function() {
  		contexte.stroke();
 	}
 
-	function decompositionRecomposition(name, numRecompo)
+	function decompositionRecomposition(name, modif, i)
 	{
-		$.get('../php/decomposition.php?file=../sources_files/'+name+'&modif=true',function(data){
+		$.get('../php/decomposition.php?file=../sources_files/'+name+"&modif="+modif,function(data){
 			var res = JSON.parse(data);
-
+			console.log(res['moyenne'].length);
+			console.log(res['detail'].length);
 			$.ajax({
 				url: "../php/recomposition.php",
 				type:"post",
@@ -31,54 +31,29 @@ $(document).ready(function() {
 				data: {
 					moyenne: res['moyenne'],
 					detail: res['detail'],
-					nbRecompo : numRecompo,
 				},
 				success: function(dataPOST){   
 					//console.log(reconstruit);
 					var reconstruit = JSON.parse(dataPOST);
 					
-					drawImage("recompo"+numRecompo, reconstruit,20);
+					drawImage("canvas"+i, reconstruit,20);
 				},
 				error:function(xhr, ajaxOptions, thrownError){alert(xhr.responseText); ShowMessage("recomposition.php","fail");}
 			});
 
 		});
-	}	
-
-	function decompositionSimple(numDecompo,name,idReq)
-	{
-		$.get('../php/decomposition.php?file=../sources_files/'+name+'&nDecompo='+numDecompo,function(data){
-			//console.log(data);
-			var res = JSON.parse(data);
-			if(numDecompo==1){	drawImage("canvas"+(numDecompo-1),res['origin'],18);}
-			drawImage("canvas"+numDecompo,res['moyenne'],18);
-			
-		});
 	}
 
-	function décomposition512Points(name)
+	function loadErrorFiles()
 	{
-		var numTotal = 9;
-		for(var i = 1; i < numTotal-1; i++ )
+		var modif = [0, 3, 3, 3];
+		for(var i = 0; i < modif.length; i++)
 		{
-			decompositionSimple(i,name,i);
+			decompositionRecomposition('crocodile512.d', modif[i],i);
 		}
 	}
 
-	function recomposition512Points(name)
-	{
-		var numTotal = 7;
-		for(var i = 1; i <= numTotal; i++ )
-		{
-			decompositionRecomposition(name,i);
-			//recompo0
-		}
-	}
-
-	
-
-	décomposition512Points('crocodile512.d');
-	recomposition512Points('crocodile512.d');
+	loadErrorFiles();
         
 
 });
