@@ -16,10 +16,6 @@ listC = cities.split("\n")
 
 for i in range(len(listC)-1):
     listl=listC[i].split(" ")
-    print(listl[0])
-    print(listl[1])
-    print(listl[2])
-    print(listl[3])
     kml+=('<Placemark id="'+listl[0]+str(listl[3])+'">'
           '<name>'+listl[0]+'</name>'
           '<Point>'
