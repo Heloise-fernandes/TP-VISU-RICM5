@@ -7,10 +7,10 @@ Ceci est un script temporaire.
 
 import random
 
-latitudeO = 45.1827778 # 45.2025
-latitudeE = 45.2030556 # 45.1847222
-longitudeN=  5.779444444444445 # 5.743333333333333
-longitudeS = 5.746944444444445 # 5.7813888888888885
+latitudeO = 5.746944444444445 # 45.2025
+latitudeE = 5.7863888888888885 # 5.779444444444445  45.1847222
+longitudeN= 45.2030556   # 5.743333333333333
+longitudeS = 45.1827778 # 5.7813888888888885
 color= 'a0ffffff'
 
 kml=('<?xml version="1.0" encoding="UTF-8"?>'
