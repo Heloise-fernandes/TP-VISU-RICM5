@@ -21,8 +21,13 @@ for i in range(len(listC)-1):
     listl=listC[i].split(" ")
     if(i>=len(listC)-2):
          listlSuivant=listC[0].split(" ")
-    else: listlSuivant=listC[i+1].split(" ")
+    else   listlSuivant=listC[i+1].split(" ")
 
+    diffLatitude=listlSuivant[1]-listl[1]
+    diffLongetude=listlSuivant[2]-listl[2]
+    pasLatitude=diffLatitude/10
+    pasLongetitude=diffLongetude/10
+    
     kml+=('<Placemark>'
           '<name>'+listl[0]+ str(listl[3])+'</name>'
           '<TimeSpan>'
@@ -31,13 +36,15 @@ for i in range(len(listC)-1):
           '<Point>'
           '<coordinates>'+str(listl[1])+','+str(listl[2])+'</coordinates>'
           '</Point>'
-          '</Placemark><Placemark>'
           '<LineString>'
           '<styleUrl>#yellowLineGreenPoly</styleUrl>'
           '<extrude>1</extrude>'
           '<tessellate>1</tessellate>'
           '<altitudeMode>absolute</altitudeMode>'
-          '<coordinates>'+str(listl[1])+','+str(listl[2])+','+str(listlSuivant[1])+','+str(listlSuivant[2])+'</coordinates>'
+          '<coordinates>')
+          for j in 0..10
+          
+          str(listl[1])+','+str(listl[2])+','+str(listlSuivant[1])+','+str(listlSuivant[2])+'</coordinates>'
           '</LineString>'
           '</Placemark>'
     )
