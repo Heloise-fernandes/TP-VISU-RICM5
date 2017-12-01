@@ -8,7 +8,7 @@ Created on Fri Nov 24 14:35:09 2017
 kml=('<?xml version="1.0" encoding="UTF-8"?>'
      '<kml xmlns="http://www.opengis.net/kml/2.2">'
      '<Document>'
-     '<name> Exercice8 </name>'
+     '<name> Exercice9 </name>'
      
 )
 
@@ -65,10 +65,11 @@ for i in range(len(listC)-1):
 	'<outerBoundaryIs>'
 	'<LinearRing>'
 	'<coordinates>'+
-	str( float(listl[1])+1)+','+str(float(listl[2])+1)+','+str()+'\n'+
-	str(float(listl[1])+1)+','+str(float(listl[2])-1)+',1000\n'+
-	str(float(listl[1])-1)+','+str(float(listl[2])-1)+',1000\n'+
-	str(float(listl[1])-1)+','+str(float(listl[2])+1)+',1000\n'+
+	str( float(listl[1])+1)+','+str(float(listl[2])+1)+','+str(float(listl[3])*100000)+'\n'+
+	str(float(listl[1])+1)+','+str(float(listl[2])-1)+','+str(float(listl[3])*100000)+'\n'+
+	str(float(listl[1])-1)+','+str(float(listl[2])-1)+','+str(float(listl[3])*100000)+'\n'+
+	str(float(listl[1])-1)+','+str(float(listl[2])+1)+','+str(float(listl[3])*100000)+'\n'+
+	str(float(listl[1])+1)+','+str(float(listl[2])+1)+','+str(float(listl[3])*100000)+'\n'+
 	'</coordinates>'
 	'</LinearRing>'
 	'</outerBoundaryIs>'

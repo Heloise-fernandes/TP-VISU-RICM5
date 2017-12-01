@@ -69,6 +69,7 @@ for i in range(len(listC)-1):
 	str(float(listl[1])+1)+','+str(float(listl[2])-1)+',1000\n'+
 	str(float(listl[1])-1)+','+str(float(listl[2])-1)+',1000\n'+
 	str(float(listl[1])-1)+','+str(float(listl[2])+1)+',1000\n'+
+	str(float(listl[1])+1)+','+str(float(listl[2])+1)+',1000\n'+
 	'</coordinates>'
 	'</LinearRing>'
 	'</outerBoundaryIs>'
