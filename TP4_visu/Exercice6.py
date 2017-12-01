@@ -36,15 +36,19 @@ for i in range(len(listC)-1):
           '<Point>'
           '<coordinates>'+str(listl[1])+','+str(listl[2])+'</coordinates>'
           '</Point>'
+          '</Placemark><Placemark>'
           '<LineString>'
           '<styleUrl>#yellowLineGreenPoly</styleUrl>'
           '<extrude>1</extrude>'
           '<tessellate>1</tessellate>'
           '<altitudeMode>absolute</altitudeMode>'
           '<coordinates>')
-          for j in 0..10
+    DepartLat=listl[1]
+    DepartLong=listl[2]
+    for j in 0..10:
+        kml+( str(DepartLat+j*pasLatitude)+','+str(DepartLong+j*pasLongetitude)+',2357\n')
           
-          str(listl[1])+','+str(listl[2])+','+str(listlSuivant[1])+','+str(listlSuivant[2])+'</coordinates>'
+    kml+('</coordinates>'
           '</LineString>'
           '</Placemark>'
     )

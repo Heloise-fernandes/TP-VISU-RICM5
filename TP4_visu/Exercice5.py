@@ -40,7 +40,7 @@ for i in range(len(listC)-1):
           '<extrude>1</extrude>'
           '<tessellate>1</tessellate>'
           '<altitudeMode>absolute</altitudeMode>'
-          '<coordinates>'+str(listl[1])+','+str(listl[2])+','+str(listlSuivant[1])+','+str(listlSuivant[2])+'</coordinates>'
+          '<coordinates>'+str(listl[1])+','+str(listl[2])+','+str(listlSuivant[1])+','+str(listlSuivant[2])+'2357</coordinates>'
           '</LineString>'
           '</Placemark>'
     )
