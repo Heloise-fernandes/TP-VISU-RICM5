@@ -8,7 +8,7 @@ Created on Fri Nov 24 14:35:09 2017
 kml=('<?xml version="1.0" encoding="UTF-8"?>'
      '<kml xmlns="http://www.opengis.net/kml/2.2">'
      '<Document>'
-     '<name> Exercice6 </name>'
+     '<name> Exercice7 </name>'
      
 )
 
@@ -39,6 +39,9 @@ for i in range(len(listC)-1):
           '</Point>'
           '</Placemark>\n<Placemark>'
           '<styleUrl>#yellowLineGreenPoly</styleUrl>'
+          '<TimeSpan>'
+          '<begin>'+str( 2001+i)+'</begin>'
+          '</TimeSpan>'
           '<LineString>'
           '<extrude>1</extrude>'
           '<tessellate>1</tessellate>'
