@@ -21,7 +21,7 @@ for i in range(len(listC)-1):
     listl=listC[i].split(" ")
     if(i>=len(listC)-2):
          listlSuivant=listC[0].split(" ")
-    else   listlSuivant=listC[i+1].split(" ")
+    else  : listlSuivant=listC[i+1].split(" ")
 
     diffLatitude=listlSuivant[1]-listl[1]
     diffLongetude=listlSuivant[2]-listl[2]
@@ -36,9 +36,9 @@ for i in range(len(listC)-1):
           '<Point>'
           '<coordinates>'+str(listl[1])+','+str(listl[2])+'</coordinates>'
           '</Point>'
-          '</Placemark><Placemark>'
-          '<LineString>'
+          '</Placemark>\n<Placemark>'
           '<styleUrl>#yellowLineGreenPoly</styleUrl>'
+          '<LineString>'
           '<extrude>1</extrude>'
           '<tessellate>1</tessellate>'
           '<altitudeMode>absolute</altitudeMode>'
@@ -46,7 +46,7 @@ for i in range(len(listC)-1):
     DepartLat=listl[1]
     DepartLong=listl[2]
     for j in 0..10:
-        kml+( str(DepartLat+j*pasLatitude)+','+str(DepartLong+j*pasLongetitude)+',2357\n')
+        kml+( str(DepartLat+j*pasLatitude)+','+str(DepartLong+j*pasLongetitude)+',100000\n')
           
     kml+('</coordinates>'
           '</LineString>'
