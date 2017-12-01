@@ -23,6 +23,7 @@ for i in range(len(listC)-1):
           '<name>'+listl[0]+ str(listl[3])+'</name>'
           '<TimeSpan>'
           '<begin>'+str( 2000+i)+'</begin>'
+          '</TimeSpan>'
           '<Point>'
           '<coordinates>'+str(listl[1])+','+str(listl[2])+'</coordinates>'
           '</Point>'
