@@ -34,15 +34,18 @@ for i in range(len(listC)-1):
           '<Point>'
           '<coordinates>'+str(listl[1])+','+str(listl[2])+'</coordinates>'
           '</Point>'
-          '</Placemark><Placemark>'
-          '<LineString>'
+          '</Placemark>\n<Placemark>'
           '<styleUrl>#yellowLineGreenPoly</styleUrl>'
+          '<LineString>'
           '<extrude>1</extrude>'
           '<tessellate>1</tessellate>'
           '<altitudeMode>absolute</altitudeMode>'
-          '<coordinates>'+str(listl[1])+','+str(listl[2])+','+str(listlSuivant[1])+','+str(listlSuivant[2])+'</coordinates>'
+          '<coordinates>'
+          +str(listl[1])+','+str(listl[2])+',100000\n'
+          +str(listlSuivant[1])+','+str(listlSuivant[2])+',100000\n'+
+          '</coordinates>'
           '</LineString>'
-          '</Placemark>'
+          '</Placemark>\n'
     )
 
 kml+=('</Document></kml>')
