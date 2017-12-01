@@ -8,7 +8,7 @@ Created on Fri Nov 24 14:35:09 2017
 kml=('<?xml version="1.0" encoding="UTF-8"?>'
      '<kml xmlns="http://www.opengis.net/kml/2.2">'
      '<Document>'
-     '<name> exercice3 </name>'
+     '<name> Exercice4 </name>'
      
 )
 
