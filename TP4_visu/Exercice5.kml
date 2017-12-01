@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><name> exercice5 </name><Placemark><name>Paris2.244</name><TimeSpan><begin>2000</begin></TimeSpan><Point><coordinates>2.3522219000000177,48.856614</coordinates></Point></Placemark>
+<?xml version="1.0" encoding="UTF-8"?><kml xmlns="http://www.opengis.net/kml/2.2"><Document><name> Exercice5 </name><Placemark><name>Paris2.244</name><TimeSpan><begin>2000</begin></TimeSpan><Point><coordinates>2.3522219000000177,48.856614</coordinates></Point></Placemark>
 <Placemark><styleUrl>#yellowLineGreenPoly</styleUrl><LineString><extrude>1</extrude><tessellate>1</tessellate><altitudeMode>absolute</altitudeMode><coordinates>2.3522219000000177,48.856614,100000
 4.351710300000036,50.8503396,100000
 </coordinates></LineString></Placemark>
