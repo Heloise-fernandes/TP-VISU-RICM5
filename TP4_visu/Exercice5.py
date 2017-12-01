@@ -8,7 +8,7 @@ Created on Fri Nov 24 14:35:09 2017
 kml=('<?xml version="1.0" encoding="UTF-8"?>'
      '<kml xmlns="http://www.opengis.net/kml/2.2">'
      '<Document>'
-     '<name> exercice3 </name>'
+     '<name> exercice5 </name>'
      
 )
 
@@ -18,10 +18,13 @@ with open("cities.txt","r") as fichier:
 listC = cities.split("\n")
 
 for i in range(len(listC)-1):
+    
     listl=listC[i].split(" ")
-    if(i>=len(listC)-2):
+
+    if(i >= len(listC)-2) :
          listlSuivant=listC[0].split(" ")
-    else: listlSuivant=listC[i+1].split(" ")
+    else :
+		listlSuivant=listC[i+1].split(" ")
 
     kml+=('<Placemark>'
           '<name>'+listl[0]+ str(listl[3])+'</name>'
