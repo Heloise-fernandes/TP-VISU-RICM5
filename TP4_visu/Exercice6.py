@@ -23,10 +23,10 @@ for i in range(len(listC)-1):
          listlSuivant=listC[0].split(" ")
     else  : listlSuivant=listC[i+1].split(" ")
 
-    diffLatitude=listlSuivant[1]-listl[1]
-    diffLongetude=listlSuivant[2]-listl[2]
-    pasLatitude=diffLatitude/10
-    pasLongetitude=diffLongetude/10
+    diffLatitude=float(listlSuivant[1])-float(listl[1])
+    diffLongetude=float(listlSuivant[2])-float(listl[2])
+    pasLatitude=diffLatitude/10.0
+    pasLongetitude=diffLongetude/10.0
     
     kml+=('<Placemark>'
           '<name>'+listl[0]+ str(listl[3])+'</name>'
@@ -43,12 +43,12 @@ for i in range(len(listC)-1):
           '<tessellate>1</tessellate>'
           '<altitudeMode>absolute</altitudeMode>'
           '<coordinates>')
-    DepartLat=listl[1]
-    DepartLong=listl[2]
-    for j in 0..10:
-        kml+( str(DepartLat+j*pasLatitude)+','+str(DepartLong+j*pasLongetitude)+',100000\n')
+    DepartLat=float(listl[1])
+    DepartLong=float(listl[2])
+    for j in range(10):
+        kml+=( str(DepartLat+j*pasLatitude)+','+str(DepartLong+j*pasLongetitude)+',100000\n')
           
-    kml+('</coordinates>'
+    kml+=('</coordinates>'
           '</LineString>'
           '</Placemark>'
     )
