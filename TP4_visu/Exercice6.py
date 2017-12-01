@@ -16,7 +16,7 @@ with open("cities.txt","r") as fichier:
     cities=fichier.read()
     
 listC = cities.split("\n")
-
+numStep = 10
 for i in range(len(listC)-1):
     listl=listC[i].split(" ")
     if(i>=len(listC)-2):
@@ -25,8 +25,9 @@ for i in range(len(listC)-1):
 
     diffLatitude=float(listlSuivant[1])-float(listl[1])
     diffLongetude=float(listlSuivant[2])-float(listl[2])
-    pasLatitude=diffLatitude/10.0
-    pasLongetitude=diffLongetude/10.0
+
+    pasLatitude=diffLatitude/numStep
+    pasLongetitude=diffLongetude/numStep
     
     kml+=('<Placemark>'
           '<name>'+listl[0]+ str(listl[3])+'</name>'
@@ -43,14 +44,15 @@ for i in range(len(listC)-1):
           '<tessellate>1</tessellate>'
           '<altitudeMode>absolute</altitudeMode>'
           '<coordinates>')
-    DepartLat=float(listl[1])
-    DepartLong=float(listl[2])
-    for j in range(10):
-        kml+=( str(DepartLat+j*pasLatitude)+','+str(DepartLong+j*pasLongetitude)+',100000\n')
           
+    DepartLat=listl[1]
+    DepartLong=listl[2]
+    for j in range(numStep+1):
+        kml+=( str(float(DepartLat)+j*pasLatitude)+','+str(float(DepartLong)+j*pasLongetitude)+',100000\n')
+        
     kml+=('</coordinates>'
           '</LineString>'
-          '</Placemark>'
+          '</Placemark>\n'
     )
 
 kml+=('</Document></kml>')
